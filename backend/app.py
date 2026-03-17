@@ -8,7 +8,7 @@ CORS(app)
 UPLOAD_FOLDER ="uploads"
 os.makedirs(UPLOAD_FOLDER,exist_ok=True)
 
-@app.route('/greet', methods=["POST"])
+@app.route('/upload', methods=["POST"])
 def send_greet():
     file =request.files.get('file')
     file_path =os.path.join(UPLOAD_FOLDER,file.filename)

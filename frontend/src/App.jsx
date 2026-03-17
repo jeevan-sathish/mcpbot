@@ -1,44 +1,29 @@
 import React, { useState } from 'react'
 
 const App = () => {
-  const [message, setMessage] = useState("")
-  const [response, setResponse] = useState("")
+  const [file,setFile]=useState(null)
+  const [message,setMessage]=useState("")
+  
+  const handleSubmit =async ()=>{
+    const formData = new FormData()
+    formData.append("file",file)
 
-  async function handleSubmit() {
-    try {
+    const response = await fetch("http://127.0.0.1:5000/upload",{
+      method:"POST",
+      body:formData
+    })
 
-      const res = await fetch("http://127.0.0.1:5000/greet", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          message: message
-        })
-      })
+    const rep =await response.json()
+    setMessage(rep)
 
-      const rep = await res.json()
 
-      setResponse(rep)
-
-    } catch (err) {
-      alert(err)
-    }
   }
-
+    
   return (
     <div>
-
-      <input
-        type="text"
-        onChange={(e) => setMessage(e.target.value)}
-      />
-
-      <button onClick={handleSubmit}>
-        send
-      </button>
-
-      <h1>{JSON.stringify(response, null, 2)}</h1>
+    <input type="file" onChange={(e)=>setFile(e.target.files[0])} />
+    <button onClick={handleSubmit}>submit</button>
+    <h1>{JSON.stringify(message,null,2)}</h1>
 
     </div>
   )
