@@ -1,19 +1,25 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
 
+UPLOAD_FOLDER ="uploads"
+os.makedirs(UPLOAD_FOLDER,exist_ok=True)
+
 @app.route('/greet', methods=["POST"])
 def send_greet():
+    file =request.files.get('file')
+    file_path =os.path.join(UPLOAD_FOLDER,file.filename)
+    file.save(file_path)
+    
+    
 
-    data = request.get_json()   # get full JSON body
-    msg = data.get("message")   # extract message
-
-    response = "hello " + msg
+    
 
     return jsonify({
-        "msg": response
+        "msg": file.filename
     })
 
 if __name__ == "__main__":
