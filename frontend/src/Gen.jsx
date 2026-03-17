@@ -5,7 +5,7 @@ const Gen = () => {
     const [response, setResponse] = useState(""); 
  
     const generateContent = async () => { 
-        const genAI = new GoogleGenerativeAI("AIzaSyAznhOhBnpvhfDiROZ9Ecw1EjXwwsubw-4"); 
+        const genAI = new GoogleGenerativeAI("Your_api"); 
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); 
  
         const prompt = "10 questions axked by hr in interview"; 
