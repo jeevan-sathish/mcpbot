@@ -1,14 +1,13 @@
-import fitz  # PyMuPDF
+import fitz 
 
-def read_pdf(file_path):
-    text = ""
-    doc = fitz.open(file_path)
+def getText(sample):
+    text=" "
+    doc = fitz.open(sample)
     
-    for page in doc:
-        text += page.get_text()
+    for txt in doc:
+        text += txt.get_text()
     
     return text
 
-
-data = read_pdf("sample.pdf")
+data = getText("sample_text.pdf")
 print(data)
